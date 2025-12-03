@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SurgQ: Comprehensive Assessment of Surgical Care Quality in India</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --surg-gray: #6B6B6B;
+            --surg-blue: #4A7BA7;
+            --surg-navy: #2C3E7D;
+            --surg-light-blue: #E8F2F7;
+            --surg-accent: #366BA6;
+            --text-dark: #2A2A2A;
+            --text-light: #5A5A5A;
+            --white: #FFFFFF;
+            --bg-soft: #F8FBFC;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.7;
+            background: var(--white);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--white) 0%, var(--surg-light-blue) 100%);
+            padding: 120px 24px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(74, 123, 167, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .logo-img {
+            height: 120px;
+            width: auto;
+            filter: drop-shadow(0 4px 12px rgba(74, 123, 167, 0.15));
+        }
+
+        .hero-text {
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            color: var(--surg-navy);
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            font-weight: 300;
+            max-width: 800px;
+        }
+
+        .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 32px;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+
+        .badge {
+            background: var(--white);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--surg-blue);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid var(--surg-light-blue);
+        }
+
+        /* Navigation */
+        .nav-section {
+            background: var(--white);
+            box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 40px;
+            padding: 20px 0;
+            overflow-x: auto;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--surg-blue);
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 24px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        section:nth-child(even) {
+            background: var(--bg-soft);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            color: var(--surg-navy);
+            margin-bottom: 16px;
+        }
+
+        .section-header .underline {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--surg-blue), var(--surg-accent));
+            margin: 0 auto 24px;
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Key Details */
+        .key-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .detail-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.08);
+            border-top: 5px solid var(--surg-blue);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .detail-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, var(--surg-light-blue) 0%, transparent 70%);
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        .detail-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(74, 123, 167, 0.2);
+            border-top-color: var(--surg-accent);
+        }
+
+        .detail-card:hover::before {
+            opacity: 0.8;
+        }
+
+        .detail-card h3 {
+            color: var(--surg-navy);
+            margin-bottom: 16px;
+            font-size: 1.4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .detail-card p {
+            color: var(--text-light);
+            line-height: 1.9;
+            font-size: 1.05rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .key-details {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Statistics */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 24px;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--surg-blue);
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        /* Mission */
+        .mission-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .mission-box {
+            background: linear-gradient(135deg, var(--surg-navy) 0%, var(--surg-blue) 100%);
+            color: var(--white);
+            padding: 48px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 30px rgba(44, 62, 125, 0.2);
+        }
+
+        .mission-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .mission-box p {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            opacity: 0.95;
+        }
+
+        .objectives-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .objectives-list li {
+            background: var(--white);
+            padding: 24px;
+            margin-bottom: 16px;
+            border-radius: 12px;
+            border-left: 4px solid var(--surg-accent);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            transition: transform 0.3s;
+        }
+
+        .objectives-list li:hover {
+            transform: translateX(8px);
+        }
+
+        .objectives-list li::before {
+            content: "→";
+            color: var(--surg-blue);
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 1.3rem;
+        }
+
+        /* Infographic Section */
+        .infographic-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            gap: 40px;
+        }
+
+        .infographic-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+        }
+
+        .infographic-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Methodology */
+        .methodology-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .method-card {
+            background: var(--white);
+            padding: 48px 40px;
+            border-radius: 20px;
+            box-shadow: 0 6px 30px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .method-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--surg-blue), var(--surg-accent));
+        }
+
+        .method-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, var(--surg-light-blue) 0%, transparent 70%);
+            opacity: 0.4;
+            transition: opacity 0.4s;
+        }
+
+        .method-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(74, 123, 167, 0.2);
+        }
+
+        .method-card:hover::after {
+            opacity: 0.7;
+        }
+
+        .method-card h3 {
+            color: var(--surg-navy);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .method-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+            font-size: 1.05rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .method-card ul {
+            list-style: none;
+            padding: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .method-card li {
+            padding: 10px 0;
+            color: var(--text-light);
+            padding-left: 28px;
+            position: relative;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .method-card li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--surg-blue);
+            font-size: 1.3rem;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        @media (max-width: 768px) {
+            .methodology-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Documents Section */
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .document-card {
+            background: linear-gradient(135deg, var(--white) 0%, var(--bg-soft) 100%);
+            padding: 48px 40px;
+            border-radius: 20px;
+            box-shadow: 0 6px 30px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .document-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--surg-blue), var(--surg-accent));
+            transform: scaleX(0);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .document-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(74, 123, 167, 0.25);
+            border-color: var(--surg-light-blue);
+            background: var(--white);
+        }
+
+        .document-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .document-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--surg-blue), var(--surg-accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 20px rgba(74, 123, 167, 0.3);
+        }
+
+        .document-card:hover .document-icon {
+            transform: rotateY(360deg) scale(1.1);
+            box-shadow: 0 12px 30px rgba(74, 123, 167, 0.4);
+        }
+
+        .document-card h3 {
+            font-size: 1.35rem;
+            color: var(--surg-navy);
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .document-card p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 28px;
+            line-height: 1.7;
+            min-height: 48px;
+        }
+
+        .doc-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--surg-blue), var(--surg-accent));
+            color: var(--white);
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(74, 123, 167, 0.3);
+        }
+
+        .doc-link:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 25px rgba(74, 123, 167, 0.4);
+        }
+
+        .doc-link::after {
+            content: '↓';
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .doc-link:hover::after {
+            transform: translateY(3px);
+        }
+
+        @media (max-width: 768px) {
+            .documents-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Eligibility */
+        .eligibility-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .eligibility-box {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
+        .eligibility-box.inclusion {
+            border-top: 4px solid #4CAF50;
+        }
+
+        .eligibility-box.exclusion {
+            border-top: 4px solid #FF6B6B;
+        }
+
+        .eligibility-box h3 {
+            font-size: 1.6rem;
+            margin-bottom: 24px;
+        }
+
+        .eligibility-box.inclusion h3 {
+            color: #4CAF50;
+        }
+
+        .eligibility-box.exclusion h3 {
+            color: #FF6B6B;
+        }
+
+        .eligibility-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .eligibility-box li {
+            padding: 12px 0;
+            padding-left: 32px;
+            position: relative;
+            color: var(--text-dark);
+            border-bottom: 1px solid var(--surg-light-blue);
+        }
+
+        .eligibility-box li:last-child {
+            border-bottom: none;
+        }
+
+        .eligibility-box.inclusion li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .eligibility-box.exclusion li::before {
+            content: "✗";
+            position: absolute;
+            left: 0;
+            color: #FF6B6B;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--bg-soft) 0%, var(--white) 50%, var(--surg-light-blue) 100%);
+            color: var(--text-dark);
+            text-align: center;
+            padding: 100px 24px;
+            position: relative;
+            overflow: hidden;
+            border-top: 5px solid var(--surg-blue);
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(74, 123, 167, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .cta-section::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(74, 123, 167, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-content h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 24px;
+            color: var(--surg-navy);
+            text-shadow: none;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: var(--text-light);
+            line-height: 1.8;
+            text-shadow: none;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--surg-blue), var(--surg-accent));
+            color: var(--white);
+            padding: 18px 48px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 30px rgba(74, 123, 167, 0.4);
+            border: 3px solid transparent;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 12px 40px rgba(74, 123, 167, 0.5);
+            background: linear-gradient(135deg, var(--surg-accent), var(--surg-navy));
+            border-color: var(--surg-blue);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 60px 24px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            color: var(--white);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 12px;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-badges {
+                justify-content: center;
+            }
+
+            nav ul {
+                gap: 20px;
+            }
+
+            section {
+                padding: 60px 24px;
+            }
+
+            .mission-box {
+                padding: 32px 24px;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading animation for sections */
+        section {
+            animation-delay: 0.2s;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="logo.png" alt="SurgQ Logo" class="logo-img">
+            </div>
+            <div class="hero-text">
+                <h1>Comprehensive Assessment of Surgical Care Quality in India</h1>
+                <p class="subtitle">A national, multicentre, collaborative study to measure evidence-based quality indicators and establish a baseline for surgical care excellence across India</p>
+            </div>
+            <div class="hero-badges">
+                <span class="badge">NATIONAL</span>
+                <span class="badge">MULTICENTRE</span>
+                <span class="badge">COLLABORATIVE</span>
+                <span class="badge">LAUNCH: 15 DEC 2025</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="nav-section">
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#need">The Need</a></li>
+                <li><a href="#mission">Mission</a></li>
+                <li><a href="#infographic">Study Design</a></li>
+                <li><a href="#methodology">Methodology</a></li>
+                <li><a href="#documents">Documents</a></li>
+                <li><a href="#eligibility">Eligibility</a></li>
+                <li><a href="#get-involved">Get Involved</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <section id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>The SurgQ Study</h2>
+                <div class="underline"></div>
+                <p>Led by the IndSurg Collaborative and WHO Collaborating Centre for Emergency, Critical and Operative Care</p>
+            </div>
+            <div class="key-details">
+                <div class="detail-card">
+                    <h3>Study Title</h3>
+                    <p>Comprehensive Assessment of Surgical Care Quality (SurgQ) for Abdominal Surgeries performed at Secondary and Tertiary Care Centers in India</p>
+                </div>
+                <div class="detail-card">
+                    <h3>Study Design</h3>
+                    <p>A prospective, cross-sectional, multicentre observational study measuring quality indicators in real-time</p>
+                </div>
+                <div class="detail-card">
+                    <h3>Population</h3>
+                    <p>Patients aged 18 years and older undergoing major abdominal surgeries at secondary and tertiary care centers</p>
+                </div>
+                <div class="detail-card">
+                    <h3>Initiative Type</h3>
+                    <p>An investigator-initiated, investigator-led, and unfunded collaborative research study</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="need">
+        <div class="container">
+            <div class="section-header">
+                <h2>The Urgent Need for Surgical Quality Data</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">313M</div>
+                    <div class="stat-label">Global Surgeries Annually</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4.2M</div>
+                    <div class="stat-label">Deaths Within 30 Days</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">7.7%</div>
+                    <div class="stat-label">Of All Global Fatalities</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50%</div>
+                    <div class="stat-label">Deaths in LMICs</div>
+                </div>
+            </div>
+            <div style="max-width: 900px; margin: 60px auto 0;">
+                <p style="font-size: 1.15rem; line-height: 1.9; color: var(--text-light); text-align: center;">
+                    In India, a substantial gap exists in our understanding of surgical care quality due to limited resources, lack of standardized protocols, and fragmented care pathways. The SurgQ study adapts a proven 15-indicator quality assessment tool to the Indian context, measuring safety, effectiveness, timeliness, patient-centeredness, equity, and efficiency.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="mission">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Mission</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="mission-content">
+                <div class="mission-box">
+                    <h3>Primary Aim</h3>
+                    <p>To systematically assess the quality of surgical care being provided across secondary and tertiary Indian hospitals by measuring evidence-based indicators</p>
+                </div>
+                <h3 style="margin-bottom: 24px; color: var(--surg-navy); font-size: 1.8rem; text-align: center;">Key Objectives</h3>
+                <ul class="objectives-list">
+                    <li>To estimate baseline surgical quality indicators across India</li>
+                    <li>To test the feasibility of data collection using an LMIC-specific assessment tool</li>
+                    <li>To assess variation in care quality across public/private and urban/rural hospitals</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="infographic">
+        <div class="container">
+            <div class="section-header">
+                <h2>Study Infographic & Design</h2>
+                <div class="underline"></div>
+                <p>Comprehensive overview of the SurgQ study structure and objectives</p>
+            </div>
+            <div class="infographic-container">
+                <div class="infographic-card">
+                    <img src="infographic1.png" alt="SurgQ Study Objectives and Duration">
+                </div>
+                <div class="infographic-card">
+                    <img src="infographic2.png" alt="SurgQ Study Population and Design">
+                </div>
+                <div class="infographic-card">
+                    <img src="infographic3.png" alt="SurgQ Data Collection Journey">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="methodology">
+        <div class="container">
+            <div class="section-header">
+                <h2>How It Works - Our Methodology</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="methodology-grid">
+                <div class="method-card">
+                    <h3>Study Setting</h3>
+                    <p>Secondary and tertiary care hospitals in India performing both elective and emergency abdominal surgeries</p>
+                </div>
+                <div class="method-card">
+                    <h3>Data Collection Period</h3>
+                    <p>15-day data collection per hospital between July–December 2025, post-IEC clearance, with telephone follow-up post-discharge</p>
+                </div>
+                <div class="method-card">
+                    <h3>Data Sources</h3>
+                    <ul>
+                        <li>General Surgery department registers & logbooks</li>
+                        <li>Operation Theatre logbooks</li>
+                        <li>Patient files and interviews</li>
+                    </ul>
+                </div>
+                <div class="method-card">
+                    <h3>Data Management</h3>
+                    <ul>
+                        <li>Printed forms or KOBOToolbox digital platform</li>
+                        <li>Standardized, centralized data collection</li>
+                        <li>Secure, GDPR-compliant servers</li>
+                        <li>Data encryption and personal oversight</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="documents">
+        <div class="container">
+            <div class="section-header">
+                <h2>Study Resources & Documents</h2>
+                <div class="underline"></div>
+                <p>Key documents to support participation in the SurgQ study</p>
+            </div>
+            <div class="documents-grid">
+                <div class="document-card">
+                    <div class="document-icon">📄</div>
+                    <h3>Concept Note</h3>
+                    <p>Overview of the study rationale, background, and framework</p>
+                    <a href="https://drive.google.com/file/d/1vpjRg7jHvQkbc3OpZwdT6Pi_DVanwAKM/view?usp=drivesdk" target="_blank" class="doc-link">Download</a>
+                </div>
+                <div class="document-card">
+                    <div class="document-icon">📋</div>
+                    <h3>Study Protocol</h3>
+                    <p>Detailed methodology, procedures, and data collection guidelines</p>
+                    <a href="https://drive.google.com/file/d/1CJ2dsJxMXmgizHF8Ins4OrWQm60nhNUQ/view?usp=drivesdk" target="_blank" class="doc-link">Download</a>
+                </div>
+                <div class="document-card">
+                    <div class="document-icon">📑</div>
+                    <h3>Informed Consent Document (ICD)</h3>
+                    <p>Patient consent form with study details and rights</p>
+                    <a href="https://drive.google.com/file/d/1pAiYw01dVWBIvRwimjLjgX4Kg57uBde0/view?usp=drivesdk" target="_blank" class="doc-link">Download</a>
+                </div>
+                <div class="document-card">
+                    <div class="document-icon">📝</div>
+                    <h3>Participant Information Sheet</h3>
+                    <p>Comprehensive information for potential study participants</p>
+                    <a href="https://drive.google.com/file/d/18XVVxxFzvzNcgJOeJifOENpobXcmtyMJ/view?usp=drivesdk" target="_blank" class="doc-link">Download</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="eligibility">
+        <div class="container">
+            <div class="section-header">
+                <h2>Participant Eligibility</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="eligibility-grid">
+                <div class="eligibility-box inclusion">
+                    <h3>Inclusion Criteria</h3>
+                    <ul>
+                        <li>Patients aged 18 years and above</li>
+                        <li>Undergoing elective abdominal surgeries</li>
+                        <li>Undergoing emergency abdominal surgeries</li>
+                        <li>Including obstructed/strangulated inguinal hernia cases</li>
+                    </ul>
+                </div>
+                <div class="eligibility-box exclusion">
+                    <h3>Exclusion Criteria</h3>
+                    <ul>
+                        <li>Patients operated outside the study site</li>
+                        <li>Patients referred for post-operative management</li>
+                        <li>Elective inguinal hernia repair cases</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="get-involved" class="cta-section">
+        <div class="cta-content">
+            <h2>Get Involved</h2>
+            <p>The SurgQ study is a collaborative effort. If your hospital is interested in participating or you would like more information, please get in touch with the coordinating team.</p>
+            <a href="mailto:sonyadamin@gmail.com" class="cta-button">Contact Us</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About SurgQ</h3>
+                <p>A national initiative by IndSurg Collaborative and WHO Collaborating Centre for Emergency, Critical and Operative Care</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#about">About the Study</a>
+                <a href="#mission">Our Mission</a>
+                <a href="#methodology">Methodology</a>
+                <a href="#documents">Study Documents</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Team</h3>
+                <p style="margin-bottom: 8px;"><strong>Sonya</strong></p>
+                <p>Email: sonyadamin@gmail.com</p>
+                <p style="margin-bottom: 16px;">Phone: +91 91670 45784</p>
+                <p style="margin-bottom: 8px;"><strong>Monty Khajanchi</strong></p>
+                <p>Email: Monta32@gmail.com</p>
+                <p>Phone: +91 92244 22992</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 SurgQ Study. All rights reserved. | IndSurg Collaborative</p>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity 
