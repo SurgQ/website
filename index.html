@@ -86,6 +86,12 @@
             filter: drop-shadow(0 4px 12px rgba(74, 123, 167, 0.15));
         }
 
+        .partner-logo-img {
+            height: 100px;
+            width: auto;
+            filter: drop-shadow(0 4px 12px rgba(74, 123, 167, 0.15));
+        }
+
         .hero-text {
             animation: fadeInUp 0.8s ease-out 0.2s backwards;
         }
@@ -157,6 +163,22 @@
 
         nav a:hover {
             color: var(--surg-blue);
+        }
+
+        .nav-apply-btn {
+            background: linear-gradient(135deg, var(--surg-blue), var(--surg-accent));
+            color: var(--white) !important;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(74, 123, 167, 0.3);
+        }
+
+        .nav-apply-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 123, 167, 0.4);
+            color: var(--white) !important;
         }
 
         /* Sections */
@@ -463,117 +485,67 @@
             }
         }
 
-        /* Documents Section */
-        .documents-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 32px;
-            max-width: 1000px;
+        /* Documents Section - List Style */
+        .documents-list-container {
+            max-width: 700px;
             margin: 0 auto;
-        }
-
-        .document-card {
-            background: linear-gradient(135deg, var(--white) 0%, var(--bg-soft) 100%);
-            padding: 48px 40px;
-            border-radius: 20px;
-            box-shadow: 0 6px 30px rgba(0,0,0,0.08);
-            text-align: center;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .document-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, var(--surg-blue), var(--surg-accent));
-            transform: scaleX(0);
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .document-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 50px rgba(74, 123, 167, 0.25);
-            border-color: var(--surg-light-blue);
             background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+            padding: 48px;
+            border-top: 5px solid var(--surg-blue);
         }
 
-        .document-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .document-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--surg-blue), var(--surg-accent));
-            border-radius: 50%;
+        .documents-list {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-            font-size: 2.5rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 8px 20px rgba(74, 123, 167, 0.3);
+            flex-direction: column;
+            gap: 0;
         }
 
-        .document-card:hover .document-icon {
-            transform: rotateY(360deg) scale(1.1);
-            box-shadow: 0 12px 30px rgba(74, 123, 167, 0.4);
+        .doc-item {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--surg-light-blue);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
         }
 
-        .document-card h3 {
-            font-size: 1.35rem;
-            color: var(--surg-navy);
-            margin-bottom: 16px;
-            font-weight: 700;
+        .doc-item:last-child {
+            border-bottom: none;
         }
 
-        .document-card p {
-            font-size: 0.95rem;
-            color: var(--text-light);
-            margin-bottom: 28px;
-            line-height: 1.7;
-            min-height: 48px;
+        .doc-item:hover {
+            padding-left: 12px;
+            background: var(--bg-soft);
+            margin: 0 -24px;
+            padding-right: 24px;
+            padding-left: 36px;
         }
 
-        .doc-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: linear-gradient(135deg, var(--surg-blue), var(--surg-accent));
-            color: var(--white);
-            padding: 14px 32px;
-            border-radius: 50px;
+        .doc-label {
+            color: var(--text-dark);
+        }
+
+        .doc-link-inline {
+            color: var(--surg-blue);
             text-decoration: none;
             font-weight: 700;
-            font-size: 0.95rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 15px rgba(74, 123, 167, 0.3);
+            transition: color 0.3s ease;
         }
 
-        .doc-link:hover {
-            transform: scale(1.08);
-            box-shadow: 0 6px 25px rgba(74, 123, 167, 0.4);
-        }
-
-        .doc-link::after {
-            content: '↓';
-            font-size: 1.2rem;
-            transition: transform 0.3s;
-        }
-
-        .doc-link:hover::after {
-            transform: translateY(3px);
+        .doc-link-inline:hover {
+            color: var(--surg-accent);
+            text-decoration: underline;
         }
 
         @media (max-width: 768px) {
-            .documents-grid {
-                grid-template-columns: 1fr;
+            .documents-list-container {
+                padding: 32px 24px;
+            }
+            
+            .doc-item:hover {
+                margin: 0 -12px;
+                padding-left: 24px;
+                padding-right: 12px;
             }
         }
 
@@ -647,6 +619,104 @@
             color: #FF6B6B;
             font-weight: bold;
             font-size: 1.3rem;
+        }
+
+        /* Deadline Section */
+        .deadline-section {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            padding: 60px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .deadline-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .deadline-banner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .deadline-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .deadline-icon {
+            font-size: 4rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .deadline-text {
+            color: var(--white);
+        }
+
+        .deadline-text h2 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Source Sans 3', sans-serif;
+            font-weight: 700;
+        }
+
+        .deadline-date {
+            font-size: 3rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 8px;
+        }
+
+        .deadline-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .deadline-btn {
+            background: var(--white);
+            color: #FF6B6B;
+            padding: 18px 48px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            display: inline-block;
+        }
+
+        .deadline-btn:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .deadline-content {
+                flex-direction: column;
+                gap: 24px;
+            }
+            
+            .deadline-date {
+                font-size: 2.2rem;
+            }
         }
 
         /* CTA Section */
@@ -839,6 +909,7 @@
         <div class="header-content">
             <div class="logo-section">
                 <img src="logo.png" alt="SurgQ Logo" class="logo-img">
+                <img src="george-institute-logo.png" alt="The George Institute for Global Health India - WHO Collaborating Centre" class="partner-logo-img">
             </div>
             <div class="hero-text">
                 <h1>Comprehensive Assessment of Surgical Care Quality in India</h1>
@@ -863,7 +934,7 @@
                 <li><a href="#methodology">Methodology</a></li>
                 <li><a href="#documents">Documents</a></li>
                 <li><a href="#eligibility">Eligibility</a></li>
-                <li><a href="#get-involved">Get Involved</a></li>
+                <li><a href="https://forms.gle/iFqCfRH7Y3KEdVpz6" target="_blank" class="nav-apply-btn">Apply Now</a></li>
             </ul>
         </nav>
     </div>
@@ -924,6 +995,22 @@
                 <p style="font-size: 1.15rem; line-height: 1.9; color: var(--text-light); text-align: center;">
                     In India, a substantial gap exists in our understanding of surgical care quality due to limited resources, lack of standardized protocols, and fragmented care pathways. The SurgQ study adapts a proven 15-indicator quality assessment tool to the Indian context, measuring safety, effectiveness, timeliness, patient-centeredness, equity, and efficiency.
                 </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="deadline" class="deadline-section">
+        <div class="container">
+            <div class="deadline-banner">
+                <div class="deadline-content">
+                    <div class="deadline-icon">⏰</div>
+                    <div class="deadline-text">
+                        <h2>Registration Deadline</h2>
+                        <p class="deadline-date">5th February 2025</p>
+                        <p class="deadline-subtitle">Don't miss the opportunity to be part of this landmark national study</p>
+                    </div>
+                    <a href="https://forms.gle/iFqCfRH7Y3KEdVpz6" target="_blank" class="deadline-btn">Register Now</a>
+                </div>
             </div>
         </div>
     </section>
@@ -1009,34 +1096,68 @@
     <section id="documents">
         <div class="container">
             <div class="section-header">
-                <h2>Study Resources & Documents</h2>
+                <h2>Study Documents</h2>
                 <div class="underline"></div>
-                <p>Key documents to support participation in the SurgQ study</p>
+                <p>Access all key documents to support participation in the SurgQ study</p>
             </div>
-            <div class="documents-grid">
-                <div class="document-card">
-                    <div class="document-icon">📄</div>
-                    <h3>Concept Note</h3>
-                    <p>Overview of the study rationale, background, and framework</p>
-                    <a href="https://drive.google.com/file/d/1vpjRg7jHvQkbc3OpZwdT6Pi_DVanwAKM/view?usp=drivesdk" target="_blank" class="doc-link">Download</a>
-                </div>
-                <div class="document-card">
-                    <div class="document-icon">📋</div>
-                    <h3>Study Protocol</h3>
-                    <p>Detailed methodology, procedures, and data collection guidelines</p>
-                    <a href="https://drive.google.com/file/d/1CJ2dsJxMXmgizHF8Ins4OrWQm60nhNUQ/view?usp=drivesdk" target="_blank" class="doc-link">Download</a>
-                </div>
-                <div class="document-card">
-                    <div class="document-icon">📑</div>
-                    <h3>Informed Consent Document (ICD)</h3>
-                    <p>Patient consent form with study details and rights</p>
-                    <a href="https://drive.google.com/file/d/1pAiYw01dVWBIvRwimjLjgX4Kg57uBde0/view?usp=drivesdk" target="_blank" class="doc-link">Download</a>
-                </div>
-                <div class="document-card">
-                    <div class="document-icon">📝</div>
-                    <h3>Participant Information Sheet</h3>
-                    <p>Comprehensive information for potential study participants</p>
-                    <a href="https://drive.google.com/file/d/18XVVxxFzvzNcgJOeJifOENpobXcmtyMJ/view?usp=drivesdk" target="_blank" class="doc-link">Download</a>
+            <div class="documents-list-container">
+                <div class="documents-list">
+                    <div class="doc-item">
+                        <span class="doc-label">For the Launch Deck,</span>
+                        <a href="https://drive.google.com/file/d/1FFsceZrfv5XSqR-4iGQuxaxVUu1ZMynl/view?usp=drivesdk" target="_blank" class="doc-link-inline">click here</a>
+                    </div>
+                    <div class="doc-item">
+                        <span class="doc-label">For the Launch Recording,</span>
+                        <a href="https://drive.google.com/file/d/1OCJWyUk8Phvs-rMP3d9ZDRB3UluNwfjc/view?usp=drivesdk" target="_blank" class="doc-link-inline">click here</a>
+                    </div>
+                    <div class="doc-item">
+                        <span class="doc-label">For the Launch PPT,</span>
+                        <a href="https://drive.google.com/file/d/1o3RQfstt6stK-Vk4tebBiuJKZdYmlzuO/view?usp=drivesdk" target="_blank" class="doc-link-inline">click here</a>
+                    </div>
+                    <div class="doc-item">
+                        <span class="doc-label">For the Data Dictionary,</span>
+                        <a href="https://drive.google.com/file/d/13PFR5IghSBAFQjY5pDef-F_RjCKl3XiO/view?usp=drivesdk" target="_blank" class="doc-link-inline">click here</a>
+                    </div>
+                    <div class="doc-item">
+                        <span class="doc-label">For the Study Protocol,</span>
+                        <a href="https://drive.google.com/file/d/1dtFauh_gE2BZ222ErnjbvgR4-RW6KbQ9/view?usp=drivesdk" target="_blank" class="doc-link-inline">click here</a>
+                    </div>
+                    <div class="doc-item">
+                        <span class="doc-label">For the Concept Note,</span>
+                        <a href="https://drive.google.com/file/d/163KjLqzXt9vn1T901LiiCfbFG0LFrnyP/view?usp=drivesdk" target="_blank" class="doc-link-inline">click here</a>
+                    </div>
+                    <div class="doc-item">
+                        <span class="doc-label">For the ICD (English),</span>
+                        <a href="https://drive.google.com/file/d/11AuSDeZPGAhQFHsvmkzgoWC7H5mdqC7l/view?usp=drivesdk" target="_blank" class="doc-link-inline">click here</a>
+                    </div>
+                    <div class="doc-item">
+                        <span class="doc-label">For the ICD (Hindi),</span>
+                        <a href="https://drive.google.com/file/d/1c3XkQL5Rtf2c-Xxl1O3qqMIXaDon5cIz/view?usp=drivesdk" target="_blank" class="doc-link-inline">click here</a>
+                    </div>
+                    <div class="doc-item">
+                        <span class="doc-label">For the ICD (Marathi),</span>
+                        <a href="https://drive.google.com/file/d/1dx_XU-ppieeP8Guxyb8MyVW99l4roNew/view?usp=drivesdk" target="_blank" class="doc-link-inline">click here</a>
+                    </div>
+                    <div class="doc-item">
+                        <span class="doc-label">For the PIS (English),</span>
+                        <a href="https://drive.google.com/file/d/1CjMDVc-nbuKwUgssT5bRjmn3HnDl-Q28/view?usp=drivesdk" target="_blank" class="doc-link-inline">click here</a>
+                    </div>
+                    <div class="doc-item">
+                        <span class="doc-label">For the PIS (Hindi),</span>
+                        <a href="https://docs.google.com/document/d/1P5UuGIWqqL8WqRqFJ_PyJWq04U8h2Ixz/edit?usp=drivesdk&ouid=106080603613829666080&rtpof=true&sd=true" target="_blank" class="doc-link-inline">click here</a>
+                    </div>
+                    <div class="doc-item">
+                        <span class="doc-label">For the PIS (Marathi),</span>
+                        <a href="https://docs.google.com/document/d/1Lh_X-QobSeIRLfz8HUa3CJ2MFZd-nOaK/edit?usp=drivesdk&ouid=106080603613829666080&rtpof=true&sd=true" target="_blank" class="doc-link-inline">click here</a>
+                    </div>
+                    <div class="doc-item">
+                        <span class="doc-label">For the Offline Data Collection Form,</span>
+                        <a href="https://drive.google.com/file/d/1N_zwnkoK7Z_uabde1MHAOjQHnlNKmn4c/view?usp=drivesdk" target="_blank" class="doc-link-inline">click here</a>
+                    </div>
+                    <div class="doc-item">
+                        <span class="doc-label">For the Data Sharing Agreement,</span>
+                        <a href="https://docs.google.com/document/d/19jL1EeQIPquUMOdahjmIKWW8o09K6--izDdi-9aLNDc/edit?usp=drivesdk" target="_blank" class="doc-link-inline">click here</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1070,14 +1191,6 @@
         </div>
     </section>
 
-    <section id="get-involved" class="cta-section">
-        <div class="cta-content">
-            <h2>Get Involved</h2>
-            <p>The SurgQ study is a collaborative effort. If your hospital is interested in participating or you would like more information, please get in touch with the coordinating team.</p>
-            <a href="mailto:sonyadamin@gmail.com" class="cta-button">Contact Us</a>
-        </div>
-    </section>
-
     <footer>
         <div class="footer-content">
             <div class="footer-section">
@@ -1094,10 +1207,10 @@
             <div class="footer-section">
                 <h3>Contact Team</h3>
                 <p style="margin-bottom: 8px;"><strong>Sonya</strong></p>
-                <p>Email: sonyadamin@gmail.com</p>
+                <p>Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="10637f7e697174717d797e50777d71797c3e737f7d">[email&#160;protected]</a></p>
                 <p style="margin-bottom: 16px;">Phone: +91 91670 45784</p>
                 <p style="margin-bottom: 8px;"><strong>Monty Khajanchi</strong></p>
-                <p>Email: Monta32@gmail.com</p>
+                <p>Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3b7654554f5a08097b5c565a525715585456">[email&#160;protected]</a></p>
                 <p>Phone: +91 92244 22992</p>
             </div>
         </div>
@@ -1106,7 +1219,7 @@
         </div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1118,16 +1231,4 @@
                         block: 'start'
                     });
                 }
-            });
-        });
-
-        // Intersection Observer for fade-in animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity 
+     
